@@ -1,7 +1,7 @@
 <section class="todoapp">
   <header class="header">
     <h1>todos</h1>
-    <!-- change 8.1 -->
+    
     <%= if @editing.id do %>
       <.link href={~p"/items"} method="get" class="new-todo">
         Click here to create a new item!
@@ -15,8 +15,7 @@
     <input id="toggle-all" class="toggle-all" type="checkbox" />
     <label for="toggle-all">Mark all as complete</label>
     <ul class="todo-list">
-      <%= for item <- @items do %>
-        <!-- change 8.1 -->
+      <%= for item <- filter(@items, @filter) do %>
         <li data-id={item.id} class={complete(item)}>
           <%= if item.status == 1 do %>
             <.link href={~p"/items/toggle/#{item.id}"} class="toggle checked">
@@ -50,15 +49,18 @@
     <span class="todo-count"><%= remaining_items(@items) %> items left</span>
     <ul class="filters">
       <li>
-        <a href="#/" class="selected">All</a>
+        <a href="/items" class={selected(@filter, "all")}>All</a>
       </li>
       
       <li>
-        <a href="#/active">Active</a>
+        <a href="/active" class={selected(@filter, "active")}>Active
+          [<%= Enum.count(filter(@items, "active")) %>]</a>
       </li>
       
       <li>
-        <a href="#/completed">Completed</a>
+        <a href="/completed" class={selected(@filter, "completed")}>
+          Completed <%= Enum.count(filter(@items, "completed")) %>
+        </a>
       </li>
     </ul>
     
