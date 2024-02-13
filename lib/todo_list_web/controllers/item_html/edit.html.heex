@@ -1,8 +1,12 @@
-<.header>
-  Edit Item <%= @item.id %>
-  <:subtitle>Use this form to manage item records in your database.</:subtitle>
-</.header>
+<!-- change 8.1 -->
 
-<.item_form changeset={@changeset} action={~p"/items/#{@item}"} />
-
-<.back navigate={~p"/items"}>Back to items</.back>
+Edit Item
+<.simple_form :let={f} for={@changeset} method="put" action={~p"/items/#{@item}"}>
+  <.input field={f[:text]} type="text" placeholder="what needs to be done?" class="new-todo" />
+  <:actions>
+    <.button style="display: none;" type="submit">
+      Save
+    </.button>
+  </:actions>
+  <!-- submit the form using the Return/Enter key -->
+</.simple_form>

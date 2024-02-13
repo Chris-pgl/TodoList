@@ -31,7 +31,14 @@
 <section class="todoapp">
   <header class="header">
     <h1>todos</h1>
-     <%= new(Map.put(assigns, :action, ~p"/items/new")) %>
+    <!-- change 8.1 -->
+    <%= if @editing.id do %>
+      <.link href={~p"/items"} method="get" class="new-todo">
+        Click here to create a new item!
+      </.link>
+    <% else %>
+      <%= new(Map.put(assigns, :action, ~p"/items/new")) %>
+    <% end %>
   </header>
   
   <section class="main" style="display: block;">
@@ -39,17 +46,30 @@
     <label for="toggle-all">Mark all as complete</label>
     <ul class="todo-list">
       <%= for item <- @items do %>
+        <!-- change 8.1 -->
         <li data-id={item.id} class={complete(item)}>
+          <%= if item.status == 1 do %>
+            <.link href={~p"/items/toggle/#{item.id}"} class="toggle checked">
+              type="checkbox"
+            </.link>
+          <% else %>
+            <.link href={~p"/items/toggle/#{item.id}"} type="checkbox" class="toggle"></.link>
+          <% end %>
+          
           <div class="view">
-            <%= if item.status == 1 do %>
-              <.link href={~p"/items/toggle/#{item.id}"} class="toggle checked">
-                type="checkbox"
-              </.link>
+            <%= if item.id == @editing.id do %>
+              <%= edit(
+                Map.put(assigns, :action, ~p"/items/#{item.id}/edit")
+                |> Map.put(:item, item)
+              ) %>
             <% else %>
-              <.link href={~p"/items/toggle/#{item.id}"} type="checkbox" class="toggle"></.link>
+              <.link href={~p"/items/#{item}/edit"} class="dblclick">
+                <label><%= item.text %></label>
+              </.link>
+               <span></span>
+              <!-- used for CSS Double Click -->
             <% end %>
-             <label><%= item.text %></label>
-            <.link class="destroy" href={~p"/items/#{item}"} method="delete"></.link>
+             <.link class="destroy" href={~p"/items/#{item}"} method="delete"></.link>
           </div>
         </li>
       <% end %>
