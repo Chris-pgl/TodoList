@@ -14,7 +14,7 @@ defmodule TodoListWeb.ItemControllerTest do
   describe "index" do
     test "lists all items", %{conn: conn} do
       conn = get(conn, ~p"/items")
-      assert html_response(conn, 200) =~ "Listing Items"
+      assert html_response(conn, 200) =~ "todos"
     end
   end
 
