@@ -31,7 +31,7 @@
 <section class="todoapp">
   <header class="header">
     <h1>todos</h1>
-     <input class="new-todo" placeholder="What needs to be done?" autofocus="" />
+     <%= new(Map.put(assigns, :action, ~p"/items/new")) %>
   </header>
   
   <section class="main" style="display: block;">

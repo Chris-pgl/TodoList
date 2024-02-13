@@ -1,10 +1,3 @@
-<%!-- <.header>
-  New Item
-  <:subtitle>Use this form to manage item records in your database.</:subtitle>
-</.header>
- <.item_form changeset={@changeset} action={~p"/items"} />
-<.back navigate={~p"/items"}>Back to items</.back> --%>
-<%!--** (KeyError) key :name not found in: %{ --%>
 <.simple_form :let={f} for={@changeset} action={~p"/items"}>
   <.input field={f[:text]} type="text" placeholder="what needs to be done?" />
   <:actions>
