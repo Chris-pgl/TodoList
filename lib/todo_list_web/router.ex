@@ -19,6 +19,7 @@ defmodule TodoListWeb.Router do
 
     get "/", PageController, :home
     resources "/items", ItemController
+    get "/items/toggle/:id", ItemController, :toggle
   end
 
   # Other scopes may use custom stacks.
