@@ -9,14 +9,18 @@
 
 <.table id="items" rows={@items} row_click={&JS.navigate(~p"/items/#{&1}")}>
   <:col :let={item} label="Text"><%= item.text %></:col>
+  
   <:col :let={item} label="Person"><%= item.person_id %></:col>
+  
   <:col :let={item} label="Status"><%= item.status %></:col>
+  
   <:action :let={item}>
     <div class="sr-only">
       <.link navigate={~p"/items/#{item}"}>Show</.link>
     </div>
-    <.link navigate={~p"/items/#{item}/edit"}>Edit</.link>
+     <.link navigate={~p"/items/#{item}/edit"}>Edit</.link>
   </:action>
+  
   <:action :let={item}>
     <.link href={~p"/items/#{item}"} method="delete" data-confirm="Are you sure?">
       Delete
@@ -27,8 +31,9 @@
 <section class="todoapp">
   <header class="header">
     <h1>todos</h1>
-    <input class="new-todo" placeholder="What needs to be done?" autofocus="" />
+     <input class="new-todo" placeholder="What needs to be done?" autofocus="" />
   </header>
+  
   <section class="main" style="display: block;">
     <input id="toggle-all" class="toggle-all" type="checkbox" />
     <label for="toggle-all">Mark all as complete</label>
@@ -41,26 +46,30 @@
             <% else %>
               <input class="toggle" type="checkbox" />
             <% end %>
-            <label><%= item.text %></label>
+             <label><%= item.text %></label>
             <.link class="destroy" href={~p"/items/#{item}"} method="delete"></.link>
           </div>
         </li>
       <% end %>
     </ul>
   </section>
+  
   <footer class="footer" style="display: block;">
     <span class="todo-count"><strong>1</strong> item left</span>
     <ul class="filters">
       <li>
         <a href="#/" class="selected">All</a>
       </li>
+      
       <li>
         <a href="#/active">Active</a>
       </li>
+      
       <li>
         <a href="#/completed">Completed</a>
       </li>
     </ul>
+    
     <button class="clear-completed" style="display: block;">
       Clear completed
     </button>

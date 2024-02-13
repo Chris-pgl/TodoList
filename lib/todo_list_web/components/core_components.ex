@@ -1,17 +1,17 @@
 defmodule TodoListWeb.CoreComponents do
   @moduledoc """
   Provides core UI components.
-
+  
   At first glance, this module may seem daunting, but its goal is to provide
   core building blocks for your application, such as modals, tables, and
   forms. The components consist mostly of markup and are well-documented
   with doc strings and declarative assigns. You may customize and style
   them in any way you want, based on your application growth and needs.
-
+  
   The default components use Tailwind CSS, a utility-first CSS framework.
   See the [Tailwind CSS documentation](https://tailwindcss.com) to learn
   how to customize them or feel free to swap in another framework altogether.
-
+  
   Icons are provided by [heroicons](https://heroicons.com). See `icon/1` for usage.
   """
   use Phoenix.Component
@@ -20,20 +20,20 @@ defmodule TodoListWeb.CoreComponents do
 
   @doc """
   Renders a modal.
-
+  
   ## Examples
-
+  
       <.modal id="confirm-modal">
         This is a modal.
       </.modal>
-
+  
   JS commands may be passed to the `:on_cancel` to configure
   the closing/cancel event, for example:
-
+  
       <.modal id="confirm" on_cancel={JS.navigate(~p"/posts")}>
         This is another modal.
       </.modal>
-
+  
   """
   attr :id, :string, required: true
   attr :show, :boolean, default: false
@@ -77,6 +77,7 @@ defmodule TodoListWeb.CoreComponents do
                   <.icon name="hero-x-mark-solid" class="h-5 w-5" />
                 </button>
               </div>
+              
               <div id={"#{@id}-content"}>
                 <%= render_slot(@inner_block) %>
               </div>
@@ -90,9 +91,9 @@ defmodule TodoListWeb.CoreComponents do
 
   @doc """
   Renders flash notices.
-
+  
   ## Examples
-
+  
       <.flash kind={:info} flash={@flash} />
       <.flash kind={:info} phx-mounted={show("#flash")}>Welcome Back!</.flash>
   """
@@ -122,10 +123,11 @@ defmodule TodoListWeb.CoreComponents do
     >
       <p :if={@title} class="flex items-center gap-1.5 text-sm font-semibold leading-6">
         <.icon :if={@kind == :info} name="hero-information-circle-mini" class="h-4 w-4" />
-        <.icon :if={@kind == :error} name="hero-exclamation-circle-mini" class="h-4 w-4" />
-        <%= @title %>
+        <.icon :if={@kind == :error} name="hero-exclamation-circle-mini" class="h-4 w-4" /> <%= @title %>
       </p>
+      
       <p class="mt-2 text-sm leading-5"><%= msg %></p>
+      
       <button type="button" class="group absolute top-1 right-1 p-2" aria-label="close">
         <.icon name="hero-x-mark-solid" class="h-5 w-5 opacity-40 group-hover:opacity-70" />
       </button>
@@ -135,9 +137,9 @@ defmodule TodoListWeb.CoreComponents do
 
   @doc """
   Shows the flash group with standard titles and content.
-
+  
   ## Examples
-
+  
       <.flash_group flash={@flash} />
   """
   attr :flash, :map, required: true, doc: "the map of flash messages"
@@ -158,7 +160,7 @@ defmodule TodoListWeb.CoreComponents do
       >
         Attempting to reconnect <.icon name="hero-arrow-path" class="ml-1 h-3 w-3 animate-spin" />
       </.flash>
-
+      
       <.flash
         id="server-error"
         kind={:error}
@@ -176,9 +178,9 @@ defmodule TodoListWeb.CoreComponents do
 
   @doc """
   Renders a simple form.
-
+  
   ## Examples
-
+  
       <.simple_form for={@form} phx-change="validate" phx-submit="save">
         <.input field={@form[:email]} label="Email"/>
         <.input field={@form[:username]} label="Username" />
@@ -200,9 +202,9 @@ defmodule TodoListWeb.CoreComponents do
   def simple_form(assigns) do
     ~H"""
     <.form :let={f} for={@for} as={@as} {@rest}>
-      <div class="mt-10 space-y-8 bg-white">
+      <div>
         <%= render_slot(@inner_block, f) %>
-        <div :for={action <- @actions} class="mt-2 flex items-center justify-between gap-6">
+        <div :for={action <- @actions}>
           <%= render_slot(action, f) %>
         </div>
       </div>
@@ -212,9 +214,9 @@ defmodule TodoListWeb.CoreComponents do
 
   @doc """
   Renders a button.
-
+  
   ## Examples
-
+  
       <.button>Send!</.button>
       <.button phx-click="go" class="ml-2">Send!</.button>
   """
@@ -242,26 +244,26 @@ defmodule TodoListWeb.CoreComponents do
 
   @doc """
   Renders an input with label and error messages.
-
+  
   A `Phoenix.HTML.FormField` may be passed as argument,
   which is used to retrieve the input name, id, and values.
   Otherwise all attributes may be passed explicitly.
-
+  
   ## Types
-
+  
   This function accepts all HTML input types, considering that:
-
+  
     * You may also set `type="select"` to render a `<select>` tag
-
+  
     * `type="checkbox"` is used exclusively to render boolean values
-
+  
     * For live file uploads, see `Phoenix.Component.live_file_input/1`
-
+  
   See https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input
   for more information.
-
+  
   ## Examples
-
+  
       <.input field={@form[:email]} type="email" />
       <.input name="my-input" errors={["oh no!"]} />
   """
@@ -317,9 +319,9 @@ defmodule TodoListWeb.CoreComponents do
           checked={@checked}
           class="rounded border-zinc-300 text-zinc-900 focus:ring-0"
           {@rest}
-        />
-        <%= @label %>
+        /> <%= @label %>
       </label>
+      
       <.error :for={msg <- @errors}><%= msg %></.error>
     </div>
     """
@@ -329,6 +331,7 @@ defmodule TodoListWeb.CoreComponents do
     ~H"""
     <div phx-feedback-for={@name}>
       <.label for={@id}><%= @label %></.label>
+      
       <select
         id={@id}
         name={@name}
@@ -337,8 +340,9 @@ defmodule TodoListWeb.CoreComponents do
         {@rest}
       >
         <option :if={@prompt} value=""><%= @prompt %></option>
-        <%= Phoenix.HTML.Form.options_for_select(@options, @value) %>
+         <%= Phoenix.HTML.Form.options_for_select(@options, @value) %>
       </select>
+      
       <.error :for={msg <- @errors}><%= msg %></.error>
     </div>
     """
@@ -348,7 +352,7 @@ defmodule TodoListWeb.CoreComponents do
     ~H"""
     <div phx-feedback-for={@name}>
       <.label for={@id}><%= @label %></.label>
-      <textarea
+       <textarea
         id={@id}
         name={@name}
         class={[
@@ -369,16 +373,15 @@ defmodule TodoListWeb.CoreComponents do
     ~H"""
     <div phx-feedback-for={@name}>
       <.label for={@id}><%= @label %></.label>
+      
       <input
         type={@type}
         name={@name}
-        id={@id}
-        value={Phoenix.HTML.Form.normalize_value(@type, @value)}
+        id={@id || @name}
+        value={@value}
         class={[
-          "mt-2 block w-full rounded-lg text-zinc-900 focus:ring-0 sm:text-sm sm:leading-6",
-          "phx-no-feedback:border-zinc-300 phx-no-feedback:focus:border-zinc-400",
-          @errors == [] && "border-zinc-300 focus:border-zinc-400",
-          @errors != [] && "border-rose-400 focus:border-rose-400"
+          input_border(@errors),
+          "new-todo"
         ]}
         {@rest}
       />
@@ -386,6 +389,12 @@ defmodule TodoListWeb.CoreComponents do
     </div>
     """
   end
+
+  defp input_border([] = _errors),
+    do: "border-zinc-300 focus:border-zinc-400 focus:ring-zinc-800/5"
+
+  defp input_border([_ | _] = _errors),
+    do: "border-rose-400 focus:border-rose-400 focus:ring-rose-400/10"
 
   @doc """
   Renders a label.
@@ -409,8 +418,9 @@ defmodule TodoListWeb.CoreComponents do
   def error(assigns) do
     ~H"""
     <p class="mt-3 flex gap-3 text-sm leading-6 text-rose-600 phx-no-feedback:hidden">
-      <.icon name="hero-exclamation-circle-mini" class="mt-0.5 h-5 w-5 flex-none" />
-      <%= render_slot(@inner_block) %>
+      <.icon name="hero-exclamation-circle-mini" class="mt-0.5 h-5 w-5 flex-none" /> <%= render_slot(
+        @inner_block
+      ) %>
     </p>
     """
   end
@@ -431,10 +441,12 @@ defmodule TodoListWeb.CoreComponents do
         <h1 class="text-lg font-semibold leading-8 text-zinc-800">
           <%= render_slot(@inner_block) %>
         </h1>
+        
         <p :if={@subtitle != []} class="mt-2 text-sm leading-6 text-zinc-600">
           <%= render_slot(@subtitle) %>
         </p>
       </div>
+      
       <div class="flex-none"><%= render_slot(@actions) %></div>
     </header>
     """
@@ -442,9 +454,9 @@ defmodule TodoListWeb.CoreComponents do
 
   @doc ~S"""
   Renders a table with generic styling.
-
+  
   ## Examples
-
+  
       <.table id="users" rows={@users}>
         <:col :let={user} label="id"><%= user.id %></:col>
         <:col :let={user} label="username"><%= user.username %></:col>
@@ -477,11 +489,13 @@ defmodule TodoListWeb.CoreComponents do
         <thead class="text-sm text-left leading-6 text-zinc-500">
           <tr>
             <th :for={col <- @col} class="p-0 pb-4 pr-6 font-normal"><%= col[:label] %></th>
+            
             <th :if={@action != []} class="relative p-0 pb-4">
               <span class="sr-only">Actions</span>
             </th>
           </tr>
         </thead>
+        
         <tbody
           id={@id}
           phx-update={match?(%Phoenix.LiveView.LiveStream{}, @rows) && "stream"}
@@ -500,6 +514,7 @@ defmodule TodoListWeb.CoreComponents do
                 </span>
               </div>
             </td>
+            
             <td :if={@action != []} class="relative w-14 p-0">
               <div class="relative whitespace-nowrap py-4 text-right text-sm font-medium">
                 <span class="absolute -inset-y-px -right-4 left-0 group-hover:bg-zinc-50 sm:rounded-r-xl" />
@@ -520,9 +535,9 @@ defmodule TodoListWeb.CoreComponents do
 
   @doc """
   Renders a data list.
-
+  
   ## Examples
-
+  
       <.list>
         <:item title="Title"><%= @post.title %></:item>
         <:item title="Views"><%= @post.views %></:item>
@@ -538,6 +553,7 @@ defmodule TodoListWeb.CoreComponents do
       <dl class="-my-4 divide-y divide-zinc-100">
         <div :for={item <- @item} class="flex gap-4 py-4 text-sm leading-6 sm:gap-8">
           <dt class="w-1/4 flex-none text-zinc-500"><%= item.title %></dt>
+          
           <dd class="text-zinc-700"><%= render_slot(item) %></dd>
         </div>
       </dl>
@@ -547,9 +563,9 @@ defmodule TodoListWeb.CoreComponents do
 
   @doc """
   Renders a back navigation link.
-
+  
   ## Examples
-
+  
       <.back navigate={~p"/posts"}>Back to posts</.back>
   """
   attr :navigate, :any, required: true
@@ -562,8 +578,7 @@ defmodule TodoListWeb.CoreComponents do
         navigate={@navigate}
         class="text-sm font-semibold leading-6 text-zinc-900 hover:text-zinc-700"
       >
-        <.icon name="hero-arrow-left-solid" class="h-3 w-3" />
-        <%= render_slot(@inner_block) %>
+        <.icon name="hero-arrow-left-solid" class="h-3 w-3" /> <%= render_slot(@inner_block) %>
       </.link>
     </div>
     """
@@ -571,19 +586,19 @@ defmodule TodoListWeb.CoreComponents do
 
   @doc """
   Renders a [Heroicon](https://heroicons.com).
-
+  
   Heroicons come in three styles – outline, solid, and mini.
   By default, the outline style is used, but solid and mini may
   be applied by using the `-solid` and `-mini` suffix.
-
+  
   You can customize the size and colors of the icons by setting
   width, height, and background color classes.
-
+  
   Icons are extracted from your `assets/vendor/heroicons` directory and bundled
   within your compiled app.css by the plugin in your `assets/tailwind.config.js`.
-
+  
   ## Examples
-
+  
       <.icon name="hero-x-mark-solid" />
       <.icon name="hero-arrow-path" class="ml-1 w-3 h-3 animate-spin" />
   """
