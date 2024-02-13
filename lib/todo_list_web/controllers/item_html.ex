@@ -17,4 +17,9 @@ defmodule TodoListWeb.ItemHTML do
       _ -> ""
     end
   end
+
+  # returns integer value of items where item.status == 0 (not "done")
+  def remaining_items(items) do
+    Enum.filter(items, fn i -> i.status == 0 end) |> Enum.count()
+  end
 end
