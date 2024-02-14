@@ -96,7 +96,12 @@ defmodule TodoListWeb.ItemController do
   def clear_completed(conn, _param) do
     person_id = 0
     query = from(i in Item, where: i.person_id == ^person_id, where: i.status == 1)
-    Repo.update_all(query, set: [status: 2])
+    completed_items = Repo.all(query)
+
+    Enum.each(completed_items, fn item ->
+      Repo.delete(item)
+    end)
+
     index(conn, %{filter: "all"})
   end
 end
