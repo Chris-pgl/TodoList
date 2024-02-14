@@ -78,6 +78,7 @@ defmodule TodoListWeb.ItemController do
     case item.status do
       1 -> 0
       0 -> 1
+      _ -> 1
     end
   end
 
@@ -87,5 +88,15 @@ defmodule TodoListWeb.ItemController do
 
     conn
     |> redirect(to: ~p"/items")
+  end
+
+  import Ecto.Query
+  alias TodoList.Repo
+
+  def clear_completed(conn, _param) do
+    person_id = 0
+    query = from(i in Item, where: i.person_id == ^person_id, where: i.status == 1)
+    Repo.update_all(query, set: [status: 2])
+    index(conn, %{filter: "all"})
   end
 end
