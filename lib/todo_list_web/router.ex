@@ -17,7 +17,7 @@ defmodule TodoListWeb.Router do
   scope "/", TodoListWeb do
     pipe_through :browser
 
-    get "/", PageController, :home
+    get "/", ItemController, :index
     resources "/items", ItemController
     get "/items/toggle/:id", ItemController, :toggle
     get "/clear", ItemController, :clear_completed

@@ -78,7 +78,7 @@ defmodule TodoListWeb.ItemController do
     case item.status do
       1 -> 0
       0 -> 1
-      _ -> 1
+      _ -> ""
     end
   end
 

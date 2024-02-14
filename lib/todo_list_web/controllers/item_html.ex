@@ -44,4 +44,8 @@ defmodule TodoListWeb.ItemHTML do
       false -> "item"
     end
   end
+
+  def got_items?(items) do
+    Enum.filter(items, fn i -> i.status < 2 end) |> Enum.count() > 0
+  end
 end
