@@ -3,6 +3,8 @@ defmodule TodoListWeb.ItemController do
 
   alias TodoList.Todo
   alias TodoList.Todo.Item
+  import Ecto.Query
+  alias TodoList.Repo
 
   # change 8.3
   def index(conn, params) do
@@ -89,9 +91,6 @@ defmodule TodoListWeb.ItemController do
     conn
     |> redirect(to: ~p"/items")
   end
-
-  import Ecto.Query
-  alias TodoList.Repo
 
   def clear_completed(conn, _param) do
     person_id = 0
