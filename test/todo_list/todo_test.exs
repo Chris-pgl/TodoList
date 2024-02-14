@@ -27,6 +27,7 @@ defmodule TodoList.TodoTest do
       assert item.status == 42
       assert item.text == "some text"
       assert item.person_id == 42
+      # assert item.priority == 1
     end
 
     test "create_item/1 with invalid data returns error changeset" do

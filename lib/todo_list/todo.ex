@@ -107,4 +107,14 @@ defmodule TodoList.Todo do
   def change_item(%Item{} = item, attrs \\ %{}) do
     Item.changeset(item, attrs)
   end
+
+  def clear_completed(_conn, _param) do
+    person_id = 0
+    query = from(i in Item, where: i.person_id == ^person_id, where: i.status == 1)
+    completed_items = Repo.all(query)
+
+    Enum.each(completed_items, fn item ->
+      Repo.delete(item)
+    end)
+  end
 end

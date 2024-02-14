@@ -3,8 +3,6 @@ defmodule TodoListWeb.ItemController do
 
   alias TodoList.Todo
   alias TodoList.Todo.Item
-  import Ecto.Query
-  alias TodoList.Repo
 
   # change 8.3
   def index(conn, params) do
@@ -93,13 +91,7 @@ defmodule TodoListWeb.ItemController do
   end
 
   def clear_completed(conn, _param) do
-    person_id = 0
-    query = from(i in Item, where: i.person_id == ^person_id, where: i.status == 1)
-    completed_items = Repo.all(query)
-
-    Enum.each(completed_items, fn item ->
-      Repo.delete(item)
-    end)
+    Todo.clear_completed(conn, _param)
 
     index(conn, %{filter: "all"})
   end

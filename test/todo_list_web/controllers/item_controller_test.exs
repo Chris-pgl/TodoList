@@ -5,11 +5,13 @@ defmodule TodoListWeb.ItemControllerTest do
   import TodoList.TodoFixtures
 
   @create_attrs %{person_id: 42, status: 0, text: "some text"}
-  @public_create_attrs %{person_id: 0, status: 0, text: "some public text"}
-  @completed_attrs %{person_id: 42, status: 1, text: "some text completed"}
-  @public_completed_attrs %{person_id: 0, status: 1, text: "some public text completed"}
+  # @public_create_attrs %{person_id: 0, status: 0, text: "some public text"}
+  # @completed_attrs %{person_id: 42, status: 1, text: "some text completed"}
+  # @public_completed_attrs %{person_id: 0, status: 1, text: "some public text completed"}
   @update_attrs %{person_id: 43, status: 1, text: "some updated text"}
   @invalid_attrs %{person_id: nil, status: nil, text: nil}
+  @new_attrs %{person_id: 42, status: 1, text: "some", priority: 1}
+  @new_attrs_2 %{person_id: 43, status: 1, text: "some", priority: 2}
 
   describe "index" do
     test "lists all items", %{conn: conn} do
@@ -98,8 +100,38 @@ defmodule TodoListWeb.ItemControllerTest do
     end
   end
 
+  defp create_item_priority(_) do
+    item = item_fixture(@new_attrs)
+    %{item: item}
+  end
+
   defp create_item(_) do
     item = item_fixture(@create_attrs)
     %{item: item}
   end
+
+  # describe "create item with priority" do
+  #   test "creare item with priority 1", %{conn: conn} do
+  #     conn = post(conn, ~p"/items", item: @new_attrs)
+
+  #     assert %{} = redirected_params(conn)
+  #     assert redirected_to(conn) == ~p"/items/"
+  #     assert item = conn(:assigns[:item])
+  #     assert item.priority == 1
+  #   end
+
+  #   test "creare item with priority 2", %{conn: conn} do
+  #     conn = post(conn, ~p"/items/", item: @new_attrs_2)
+
+  #     assert %{} = redirected_params(conn)
+  #     assert redirected_to(conn) == ~p"/items/"
+  #     assert item = conn(:assigns[:item])
+  #     assert item.priority == 2
+  #   end
+
+  #   test "error invalid attributes", %{conn: conn} do
+  #     conn = post(conn, ~p"/items", item: @invalid_attrs)
+  #     assert html_response(conn, 200) =~ "can&#39;t be blank"
+  #   end
+  # end
 end
