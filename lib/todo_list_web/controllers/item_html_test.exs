@@ -24,4 +24,15 @@ defmodule TodoListWeb.ItemHtmlTest do
     items = []
     assert ItemHTML.remaining_items(items) == 0
   end
+
+  test "pluralise/1 returns item dor 1 item and items for < 1 <" do
+    assert ItemHTML.pluralise([%{text: "one", status: 0}]) == "item"
+
+    assert ItemHTML.pluralise([
+             %{text: "one", status: 0},
+             %{text: "two", status: 0}
+           ]) == "items"
+
+    assert ItemHTML.pluralise([%{text: "one", status: 1}]) == "items"
+  end
 end
