@@ -41,6 +41,18 @@ defmodule TodoListWeb.ItemController do
     end
   end
 
+  # def create(conn, %{"item" => item_params}) do
+  #   case Todo.create_item(item_params) do
+  #     {:ok, item} ->
+  #       conn
+  #       |> put_flash(:info, "Item created successfully.")
+  #       |> redirect(to: ~p"/items/")
+
+  #     {:error, %Ecto.Changeset{} = changeset} ->
+  #       render(conn, :new, changeset: changeset)
+  #   end
+  # end
+
   def show(conn, %{"id" => id}) do
     item = Todo.get_item!(id)
     render(conn, :show, item: item)

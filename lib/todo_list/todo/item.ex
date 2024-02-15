@@ -6,6 +6,7 @@ defmodule TodoList.Todo.Item do
     field :person_id, :integer, default: 0
     field :status, :integer, default: 0
     field :text, :string
+    field :priority, :integer, default: 0
 
     timestamps()
   end
@@ -13,7 +14,7 @@ defmodule TodoList.Todo.Item do
   @doc false
   def changeset(item, attrs) do
     item
-    |> cast(attrs, [:text, :person_id, :status])
+    |> cast(attrs, [:text, :person_id, :status, :priority])
     |> validate_required([:text])
   end
 end

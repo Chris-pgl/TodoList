@@ -20,28 +20,31 @@ defmodule TodoList.TodoTest do
       assert Todo.get_item!(item.id) == item
     end
 
+    # modificati i valori attesi dei test dopo aver aggiunto priority
     test "create_item/1 with valid data creates a item" do
-      valid_attrs = %{status: 42, text: "some text", person_id: 42}
+      valid_attrs = %{status: 42, text: "some text", person_id: 42, priority: 1}
 
       assert {:ok, %Item{} = item} = Todo.create_item(valid_attrs)
       assert item.status == 42
       assert item.text == "some text"
       assert item.person_id == 42
-      # assert item.priority == 1
+      assert item.priority == 1
     end
 
     test "create_item/1 with invalid data returns error changeset" do
       assert {:error, %Ecto.Changeset{}} = Todo.create_item(@invalid_attrs)
     end
 
+    # modificati i valori attesi dei test dopo aver aggiunto priority
     test "update_item/2 with valid data updates the item" do
       item = item_fixture()
-      update_attrs = %{status: 43, text: "some updated text", person_id: 43}
+      update_attrs = %{status: 43, text: "some updated text", person_id: 43, priority: 2}
 
       assert {:ok, %Item{} = item} = Todo.update_item(item, update_attrs)
       assert item.status == 43
       assert item.text == "some updated text"
       assert item.person_id == 43
+      assert item.priority == 2
     end
 
     test "update_item/2 with invalid data returns error changeset" do
