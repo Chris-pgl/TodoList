@@ -4,7 +4,6 @@ defmodule TodoListWeb.ItemController do
   alias TodoList.Todo
   alias TodoList.Todo.Item
 
-  # change 8.3
   def index(conn, params) do
     item =
       if not is_nil(params) and Map.has_key?(params, "id") do
@@ -40,18 +39,6 @@ defmodule TodoListWeb.ItemController do
         render(conn, :new, changeset: changeset)
     end
   end
-
-  # def create(conn, %{"item" => item_params}) do
-  #   case Todo.create_item(item_params) do
-  #     {:ok, item} ->
-  #       conn
-  #       |> put_flash(:info, "Item created successfully.")
-  #       |> redirect(to: ~p"/items/")
-
-  #     {:error, %Ecto.Changeset{} = changeset} ->
-  #       render(conn, :new, changeset: changeset)
-  #   end
-  # end
 
   def show(conn, %{"id" => id}) do
     item = Todo.get_item!(id)
@@ -103,7 +90,7 @@ defmodule TodoListWeb.ItemController do
   end
 
   def clear_completed(conn, _param) do
-    Todo.clear_completed(conn, _param)
+    Todo.clear_completed()
 
     index(conn, %{filter: "all"})
   end

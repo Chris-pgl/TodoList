@@ -4,15 +4,9 @@ defmodule TodoListWeb.ItemControllerTest do
 
   import TodoList.TodoFixtures
 
-  @create_attrs %{person_id: 42, status: 0, text: "some text"}
-  # @public_create_attrs %{person_id: 0, status: 0, text: "some public text"}
-  # @completed_attrs %{person_id: 42, status: 1, text: "some text completed"}
-  # @public_completed_attrs %{person_id: 0, status: 1, text: "some public text completed"}
-  @update_attrs %{person_id: 43, status: 1, text: "some updated text"}
-  @invalid_attrs %{person_id: nil, status: nil, text: nil}
-  @invalid_attrs2 %{person_id: nil, status: nil, text: nil, priority: nil}
-  @new_attrs %{person_id: 42, status: 0, text: "some", priority: 1}
-  @new_attrs_2 %{person_id: 43, status: 0, text: "some", priority: 2}
+  @create_attrs %{person_id: 42, status: 0, text: "some text", priority: 1}
+  @update_attrs %{person_id: 43, status: 1, text: "some updated text", priority: 2}
+  @invalid_attrs %{person_id: nil, status: nil, text: nil, priority: nil}
 
   # creato attributi per test
   # modificato create_item con attributi nuovi
@@ -36,21 +30,19 @@ defmodule TodoListWeb.ItemControllerTest do
     end
   end
 
-  # commentato in attesa di modifica
+  describe "create item with priority" do
+    test "creare item with priority 1", %{conn: conn} do
+      conn = post(conn, ~p"/items", item: @create_attrs)
 
-  # describe "create item" do
-  #   test "redirects to show when data is valid", %{conn: conn} do
-  #     conn = post(conn, ~p"/items", item: @create_attrs)
+      assert %{} = redirected_params(conn)
+      assert redirected_to(conn) == ~p"/items/"
+    end
 
-  #     assert %{} = redirected_params(conn)
-  #     assert redirected_to(conn) == ~p"/items/"
-  #   end
-
-  #   test "errors when invalid attributes are passed", %{conn: conn} do
-  #     conn = post(conn, ~p"/items", item: @invalid_attrs)
-  #     assert html_response(conn, 200) =~ "can&#39;t be blank"
-  #   end
-  # end
+    test "error invalid attributes", %{conn: conn} do
+      conn = post(conn, ~p"/items", item: @invalid_attrs)
+      assert html_response(conn, 200) =~ "can&#39;t be blank"
+    end
+  end
 
   describe "edit item" do
     setup [:create_item]
@@ -111,27 +103,8 @@ defmodule TodoListWeb.ItemControllerTest do
     end
   end
 
-  # defp create_item(_) do
-  #   item = item_fixture(@create_attrs)
-  #   %{item: item}
-  # end
-
   defp create_item(_) do
-    item = item_fixture2(@new_attrs)
+    item = item_fixture(@create_attrs)
     %{item: item}
-  end
-
-  describe "create item with priority" do
-    test "creare item with priority 1", %{conn: conn} do
-      conn = post(conn, ~p"/items", item: @new_attrs)
-
-      assert %{} = redirected_params(conn)
-      assert redirected_to(conn) == ~p"/items/"
-    end
-
-    test "error invalid attributes", %{conn: conn} do
-      conn = post(conn, ~p"/items", item: @invalid_attrs2)
-      assert html_response(conn, 200) =~ "can&#39;t be blank"
-    end
   end
 end

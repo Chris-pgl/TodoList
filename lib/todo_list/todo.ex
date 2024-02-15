@@ -108,7 +108,7 @@ defmodule TodoList.Todo do
     Item.changeset(item, attrs)
   end
 
-  def clear_completed(_conn, _param) do
+  def clear_completed() do
     person_id = 0
     query = from(i in Item, where: i.person_id == ^person_id, where: i.status == 1)
     completed_items = Repo.all(query)

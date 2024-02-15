@@ -13,19 +13,6 @@ defmodule TodoList.TodoFixtures do
       |> Enum.into(%{
         person_id: 42,
         status: 42,
-        text: "some text"
-      })
-      |> TodoList.Todo.create_item()
-
-    item
-  end
-
-  def item_fixture2(attrs \\ %{}) do
-    {:ok, item} =
-      attrs
-      |> Enum.into(%{
-        person_id: 42,
-        status: 42,
         text: "some text",
         priority: 3
       })
