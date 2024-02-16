@@ -14,7 +14,6 @@
   <section class="main" style="display: block;">
     <input id="toggle-all" class="toggle-all" type="checkbox" />
     <ul class="todo-list">
-      <%!-- <%= for item <- filter(@items, @filter) do %> --%>
       <%= for item <- Enum.sort_by(@items, &(&1.priority)) do %>
         <li data-id={item.id} class={complete(item)}>
           <%= if item.status == 1 do %>

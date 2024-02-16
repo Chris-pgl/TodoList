@@ -33,7 +33,6 @@ defmodule TodoListWeb.ItemHTML do
 
       "completed" ->
         Enum.filter(items, fn i -> i.status == 1 end)
-        # da aggiungere per "priority"
     end
   end
 
