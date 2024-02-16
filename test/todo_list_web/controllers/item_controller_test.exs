@@ -13,7 +13,10 @@ defmodule TodoListWeb.ItemControllerTest do
   # create funzioni di creazione nuovo item
   # aggiornato update e altre funzioni con i nuovi valori
   # attualmente test: 22 ok, 0 fails
+  # aggiunto il pulsante per priority
+  # priority funzionante
 
+  # sistemare priority in oridine asc
   # da sistemare update per priority se si vuole modificare
 
   describe "index" do

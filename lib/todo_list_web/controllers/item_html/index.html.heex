@@ -13,7 +13,6 @@
   
   <section class="main" style="display: block;">
     <input id="toggle-all" class="toggle-all" type="checkbox" />
-    <label for="toggle-all">Mark all as complete</label>
     <ul class="todo-list">
       <%= for item <- filter(@items, @filter) do %>
         <li data-id={item.id} class={complete(item)}>
@@ -33,7 +32,7 @@
               ) %>
             <% else %>
               <.link href={~p"/items/#{item}/edit"} class="dblclick">
-                <label><%= item.text %></label>
+                <label><%= item.text %></label> <label><%= item.priority %></label>
               </.link>
                <span></span>
               <!-- used for CSS Double Click -->

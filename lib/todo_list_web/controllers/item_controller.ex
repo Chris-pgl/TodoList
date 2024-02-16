@@ -45,7 +45,6 @@ defmodule TodoListWeb.ItemController do
     render(conn, :show, item: item)
   end
 
-  # change 8.3
   def edit(conn, params) do
     index(conn, params)
   end

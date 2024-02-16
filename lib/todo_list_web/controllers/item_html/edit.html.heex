@@ -3,6 +3,7 @@
 Edit Item
 <.simple_form :let={f} for={@changeset} method="put" action={~p"/items/#{@item}"}>
   <.input field={f[:text]} type="text" placeholder="what needs to be done?" class="new-todo" />
+  <.input field={f[:priority]} placeholder="priority" class="new-todo" />
   <:actions>
     <.button style="display: none;" type="submit">
       Save
