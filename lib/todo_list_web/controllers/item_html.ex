@@ -25,9 +25,15 @@ defmodule TodoListWeb.ItemHTML do
 
   def filter(items, str) do
     case str do
-      "all" -> items
-      "active" -> Enum.filter(items, fn i -> i.status == 0 end)
-      "completed" -> Enum.filter(items, fn i -> i.status == 1 end)
+      "all" ->
+        items
+
+      "active" ->
+        Enum.filter(items, fn i -> i.status == 0 end)
+
+      "completed" ->
+        Enum.filter(items, fn i -> i.status == 1 end)
+        # da aggiungere per "priority"
     end
   end
 
