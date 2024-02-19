@@ -21,7 +21,7 @@ defmodule TodoList.Todo do
     query =
       from(i in Item,
         select: i,
-        order_by: [asc: i.id]
+        order_by: [asc: i.priority]
       )
 
     Repo.all(query)
@@ -116,5 +116,10 @@ defmodule TodoList.Todo do
     Enum.each(completed_items, fn item ->
       Repo.delete(item)
     end)
+  end
+
+  def order_by_priority() do
+    query = from(i in Item, order_by: [asc: i.priority])
+    Repo.all(query)
   end
 end
